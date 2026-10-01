@@ -1,0 +1,114 @@
+{
+  "name": "AI Chatbot Informasi Mahasiswa",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        176
+      ],
+      "id": "74d9c83e-42ac-499f-a6ac-cb3b78db2bbd",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Hitj28QQPbtu5wIJ",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        576,
+        -16
+      ],
+      "id": "cff73410-b044-49eb-95a9-a7a869c6b997",
+      "name": "When chat message received",
+      "webhookId": "19b5ed23-a59f-4b9d-b547-9c601e126485"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful asAnda adalah AI Chatbot Informasi Mahasiswa. Tugas Anda adalah membantu mahasiswa menjawab pertanyaan seputar perkuliahan, tugas, jadwal, kegiatan akademik, dan tips belajar. Jawablah dengan bahasa Indonesia yang jelas, ramah, sederhana, dan mudah dipahami mahasiswa. Berikan jawaban berdasarkan informasi yang tersedia. Jika informasi yang ditanyakan tidak tersedia atau tidak diketahui, katakan dengan jujur bahwa informasi tersebut tidak tersedia dan jangan mengarang jawaban.sistant"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        848,
+        0
+      ],
+      "id": "0c35f9d9-c7aa-43fb-ad7a-a451a00024aa",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        864,
+        208
+      ],
+      "id": "5b42077d-12f0-4e23-8c91-861fa1e8aefe",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7cc5ff1d-80f5-4d09-9c7f-8bde8672619f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dc96f10ae7dc95d3c138575ba243a0a167923dbcb524841d451aadf9135d5fb3"
+  },
+  "nodeGroups": [],
+  "id": "Zjn3xQ33Q2lMaYUm",
+  "tags": []
+}
